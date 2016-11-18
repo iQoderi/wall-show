@@ -1,30 +1,36 @@
 <template>
   <div class="wrapper">
-    <div>
-      <button @click="addWall">add</button>
       <wall-logo />
-      <ul>
-        <wall-item v-for="wall in walls" :wall='wall'></wall-item>
-      </ul>
-    </div>
-  </div>
-
+      <transition-group name="list" tag="ul">
+        <wall-item v-for="wall in walls" :wall='wall' v-bind:key="wall._id"></wall-item>
+      </transition-group>
   </div>
 </template>
 <script>
   import WallLogo from '../components/logo.vue'
   import WallItem from '../components/wallItem.vue'
+  import io from 'socket.io-client'
   export default{
     data(){
       return {
-        walls:[{content:'我是墙啊'},{content:'我是墙啊'},{content:'我是墙啊'},{content:'我是墙啊'}]
+        walls:[],
+        historyWalls:[],
       }
     },
-    methods:{
-      addWall(){
-        const vm=this;
-        vm.walls.unshift({content:"我是新添加的内容"})
-      }
+    created(){
+      const vm=this;
+      vm.io=io.connect('http://127.0.0.1:9000')
+    },
+    mounted(){
+      const vm=this;
+      vm.io.on('pulMess',({data,_id})=>{
+        vm.walls.unshift({content:data,_id});
+        if(vm.walls.length>3){
+          Array.prototype.push.apply(vm.historyWalls,vm.walls.slice(3));
+          vm.walls.length=3;
+          console.log(vm.historyWalls);
+        }
+      })
     },
     components:{
       WallLogo,WallItem
@@ -36,12 +42,22 @@
     padding: 0;
     margin: 0;
   }
+  .list-item {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .list-enter-active, .list-leave-active {
+    transition: all 1s;
+  }
+  .list-enter, .list-leave-active {
+    opacity: 0;
+    transform: translateY(30px);
+  }
   li {
     list-style: none;
   }
   .wrapper {
     width: 100%;
-    height: 880px;
     box-sizing: border-box;
     overflow: hidden;
   }

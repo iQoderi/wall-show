@@ -7,7 +7,6 @@
     <div class="text-show">
       {{wall.content}}
     </div>
-
   </li>
 </template>
 <style lang="scss" scoped>
@@ -36,7 +35,7 @@
   .text-show {
     float: left;
     width: 78%;
-    min-height: 200px;
+    height: 200px;
     word-break: break-all;
     word-wrap: break-word;
     font-size: 50px;
