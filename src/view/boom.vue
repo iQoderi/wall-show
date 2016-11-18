@@ -1,21 +1,37 @@
 <template>
   <div class="wrapper">
-      <wall-logo />
+    <button @click="showRocket">rocket</button>
+      <wall-logo/>
       <transition-group name="list" tag="ul">
         <wall-item v-for="wall in walls" :wall='wall' v-bind:key="wall._id"></wall-item>
       </transition-group>
+      <wall-rocket :show="rocketShow" :adminSay="adminSay"/>
   </div>
 </template>
 <script>
   import WallLogo from '../components/logo.vue'
   import WallItem from '../components/wallItem.vue'
+  import WallRocket from '../components/rocket.vue'
   import io from 'socket.io-client'
   export default{
     data(){
       return {
         walls:[],
         historyWalls:[],
+        rocketShow:false,
+        timer:null,
+        adminSay:'',
       }
+    },
+    methods:{
+      showRocket(){
+        const vm=this
+        clearTimeout(vm.timer)
+        vm.rocketShow=true
+        vm.timer=setTimeout(()=>{
+          vm.rocketShow=false
+        },7000)
+      },
     },
     created(){
       const vm=this;
@@ -24,16 +40,24 @@
     mounted(){
       const vm=this;
       vm.io.on('pulMess',({data,_id})=>{
-        vm.walls.unshift({content:data,_id});
+        vm.walls.unshift({content:data,_id})
         if(vm.walls.length>3){
           Array.prototype.push.apply(vm.historyWalls,vm.walls.slice(3));
-          vm.walls.length=3;
-          console.log(vm.historyWalls);
+          vm.walls.length=3
         }
+      })
+
+      vm.io.on('adminSay',({data})=>{
+        clearTimeout(vm.timer)
+        vm.rocketShow=true
+        vm.adminSay=data
+        vm.timer=setTimeout(()=>{
+          vm.rocketShow=false
+        },7000)
       })
     },
     components:{
-      WallLogo,WallItem
+      WallLogo,WallItem,WallRocket
     }
   }
 </script>
