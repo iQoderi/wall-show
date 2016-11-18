@@ -12,10 +12,10 @@
     transform: rotate(45deg);
     position: absolute;
     bottom: 50px;
-    left: 100px;
+    left: -200px;
     background: url("../assets/huojian.png") no-repeat center;
     background-size: 100%;
-    animation: rocketAnimation 8s ease-in;
+    animation: rocketAnimation 5s ease-in;
     .content{
       width: 150px;
       height: 200px;
