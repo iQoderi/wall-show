@@ -22,7 +22,8 @@
       position: absolute;
       top: 255px;
       left: 15px;
-      font-size: 16px;
+      font-size: 20px;
+      font-weight: 600;
       background: #f2f2f2;
       border-radius: 5px;
       box-sizing: border-box;
