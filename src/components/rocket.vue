@@ -12,9 +12,9 @@
     position: absolute;
     top: 20px;
     left: 200px;
-    background: url("../assets/huojian.png") no-repeat center;
+    background: url("../assets/rocket.gif") no-repeat center;
     background-size: 100%;
-    /*animation: rocketAnimation 5s ease-in-out;*/
+    animation: rocketAnimation 5s ease-in-out;
     animation-fill-mode: forwards;
     -webkit-animation-fill-mode:forwards;
   }

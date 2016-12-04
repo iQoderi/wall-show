@@ -1,17 +1,19 @@
 <template>
   <div class="wrapper">
-    <button @click="showRocket">rocket</button>
+    <button @click="addRockets({content:1})">rocket</button>
     <wall-logo/>
     <transition-group name="list" tag="ul">
       <wall-item v-for="wall in walls" :wall='wall' v-bind:key="wall._id"></wall-item>
     </transition-group>
-    <wall-rocket  v-for="word in adminSay" :word="word"/>
+    <wall-rocket  v-for="word in rockets" :word="word"/>
   </div>
 </template>
 <script>
+  import {mapGetters,mapMutations} from 'vuex'
   import WallLogo from '../components/logo.vue'
   import WallItem from '../components/wallItem.vue'
   import WallRocket from '../components/rocket.vue'
+  import {ADD_ROCKETS} from '../vuex/modules/rockets/mutation-type'
   import io from 'socket.io-client'
   export default{
     data(){
@@ -23,7 +25,11 @@
         adminSay: ['dawda'],
       }
     },
+    computed:{
+      ...mapGetters({'rockets':'rockets'})
+    },
     methods: {
+      ...mapMutations({addRockets:ADD_ROCKETS}),
       showRocket(){
         const vm = this
         vm.adminSay.push('dwadawdaed')
@@ -36,17 +42,14 @@
     mounted(){
       const vm = this;
       vm.io.on('pulMess', ({content, id})=> {
-        console.log(content);
         vm.walls.unshift({content, _id: id})
         if (vm.walls.length > 3) {
           Array.prototype.push.apply(vm.historyWalls, vm.walls.slice(3));
           vm.walls.length = 3
         }
       })
-
       vm.io.on('PULADMINWALLTOWALL', ({content})=> {
-        clearTimeout(vm.timer)
-        vm.adminSay.push(content);
+        vm.addRocket({content})
       })
     },
     components: {
