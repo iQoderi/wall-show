@@ -2,7 +2,7 @@
   <li>
     <div class="avatar-show">
       <img src="../assets/avatar.jpg" class="avatar">
-      <div class="name-show">Qoder</div>
+      <div class="name-show">GlodenBao</div>
     </div>
     <div class="text-show">
       {{wall.content}}
