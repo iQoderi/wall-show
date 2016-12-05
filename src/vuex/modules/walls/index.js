@@ -6,7 +6,7 @@ import mutations from './mutations'
 import * as getters from './getters'
 
 const state={
-  walls:[{id:1,content:1}],
+  walls:[],
   historyWalls:[]
 }
 

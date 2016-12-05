@@ -2,9 +2,9 @@
   <li>
     <div class="avatar-show">
       <img src="../assets/avatar.jpg" class="avatar">
-      <div class="name-show">GlodenBao</div>
+      <div class="name-show">{{wall.nickname}}</div>
     </div>
-    <div class="text-show">
+    <div class="text-show" v-bind:style="{fontSize:wall.fontSize}">
       {{wall.content}}
     </div>
   </li>
@@ -15,6 +15,7 @@
     float: left;
     width: 16%;
   }
+
   .avatar {
     width: 200px;
     height: 200px;
@@ -24,7 +25,7 @@
     width: 200px;
     height: 60px;
     line-height: 60px;
-    background: rgba(0,0,0,.6);
+    background: rgba(0, 0, 0, .6);
     color: #fff;
     text-align: center;
     font-size: 30px;
@@ -32,21 +33,24 @@
     bottom: 2px;
     left: 0;
   }
+
   .text-show {
     float: left;
     width: 78%;
     height: 200px;
     word-break: break-all;
     word-wrap: break-word;
-    font-size: 50px;
     line-height: 1.4;
     background: #fff;
     padding: 0 1%;
     position: relative;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
   }
 
   @media all and (max-width: 1600px) {
-    .text-show{
+    .text-show {
       margin-left: 5%;
       width: 75%;
     }
@@ -61,22 +65,22 @@
     top: 75px;
     left: -30px;
   }
+
   li {
     overflow: hidden;
     margin-bottom: 20px;
   }
 </style>
 <script>
-    export default{
-        data(){
-            return{
-            }
-        },
-      props:{
-          wall:{
-            required:true,
-            type:Object
-          }
+  export default{
+    data(){
+      return {}
+    },
+    props: {
+      wall: {
+        required: true,
+        type: Object
       }
     }
+  }
 </script>

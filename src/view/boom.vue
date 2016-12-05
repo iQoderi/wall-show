@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <button @click="addWalls({content:21313,id:23})">rocket</button>
+    <button @click="addWalls({content:'dwadadead',id:23})">rocket</button>
     <wall-logo/>
     <transition-group name="list" tag="ul">
       <wall-item v-for="wall in walls" :wall='wall' v-bind:key="wall.id"></wall-item>
@@ -38,7 +38,7 @@
         vm.addWalls(data)
       })
       vm.io.on('PULADMINWALLTOWALL', ({content})=> {
-        vm.addRocket({content})
+        vm.addRockets({content})
       })
     },
     components: {
