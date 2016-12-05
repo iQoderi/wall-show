@@ -39,7 +39,7 @@
       add(){
         this.addRockets({
           content: '3213123123123', id: Date.now(), distance: 0, isHover: 0,
-          speed: 6
+          speed: 1
         })
       }
     },

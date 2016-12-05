@@ -8,7 +8,7 @@ import * as getters from './gettters';
 const state = {
   rockets: [{
     id: 1,
-    content: "3213123123123dwadawdawfaefesfewfwafeafawfeafaefaefaefafae",
+    content: "dawd",
     distance: 0,
     isHover: 0,
     speed: 1
