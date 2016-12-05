@@ -1,32 +1,47 @@
 <template>
   <div class="wrapper">
-    <button @click="addWalls({content:'dwadadead',id:23})">rocket</button>
+    <button @click="test" class="button">rocket</button>
+    <button @click="add" class="button2">addrocket</button>
     <wall-logo/>
     <transition-group name="list" tag="ul">
       <wall-item v-for="wall in walls" :wall='wall' v-bind:key="wall.id"></wall-item>
     </transition-group>
-    <wall-rocket  v-for="word in rockets" :word="word"/>
+    <wall-rocket
+      v-for="rocket in rockets" :rocket="rocket"/>
   </div>
 </template>
 <script>
-  import {mapGetters,mapMutations} from 'vuex'
+  import {mapGetters, mapMutations} from 'vuex'
   import WallLogo from '../components/logo.vue'
   import WallItem from '../components/wallItem.vue'
   import WallRocket from '../components/rocket.vue'
-  import {ADD_ROCKETS} from '../vuex/modules/rockets/mutation-type'
+  import {ADD_ROCKETS, ADD_ROCKET_DISTANCE} from '../vuex/modules/rockets/mutation-type'
   import {ADD_WALL} from '../vuex/modules/walls/mutation-type'
   import io from 'socket.io-client'
   export default{
     data(){
-      return {
-
-      }
+      return {}
     },
-    computed:{
-      ...mapGetters({'rockets':'rockets','walls':'walls'})
+    computed: {
+      ...mapGetters({'rockets': 'rockets', 'walls': 'walls'})
     },
     methods: {
-      ...mapMutations({addRockets:ADD_ROCKETS,addWalls:ADD_WALL}),
+      ...mapMutations({
+        addRockets: ADD_ROCKETS,
+        addWalls: ADD_WALL,
+        addRocketDis: ADD_ROCKET_DISTANCE,
+      }),
+      test(){
+        setInterval(()=> {
+          this.addRocketDis();
+        }, 6)
+      },
+      add(){
+        this.addRockets({
+          content: '3213123123123', id: Date.now(), distance: 0, isHover: 0,
+          speed: 6
+        })
+      }
     },
     created(){
       const vm = this;
@@ -50,6 +65,22 @@
   * {
     padding: 0;
     margin: 0;
+  }
+
+  .button {
+    position: absolute;
+    top: 500px;
+    height: 100px;
+    width: 100px;
+    left: 200px;
+  }
+
+  .button2 {
+    position: absolute;
+    top: 600px;
+    height: 100px;
+    width: 100px;
+    left: 200px;
   }
 
   .list-item {

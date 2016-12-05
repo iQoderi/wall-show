@@ -5,8 +5,14 @@
 import mutations from './mutations'
 import * as getters from './gettters';
 
-const state={
-  rockets:[]
+const state = {
+  rockets: [{
+    id: 1,
+    content: "3213123123123dwadawdawfaefesfewfwafeafawfeafaefaefaefafae",
+    distance: 0,
+    isHover: 0,
+    speed: 1
+  }]
 }
 
 export default {
