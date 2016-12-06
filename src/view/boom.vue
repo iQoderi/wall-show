@@ -1,14 +1,12 @@
 <template>
   <div class="wrapper">
-    <button @click="test" class="button">addWall</button>
     <wall-logo/>
     <transition-group name="list" tag="ul">
       <wall-item
         v-for="wall in walls" :wall='wall' v-bind:key="wall.id">
       </wall-item>
     </transition-group>
-    <wall-rocket
-      v-for="rocket in rockets" :rocket="rocket"/>
+    <wall-rocket :rockets="rockets"/>
   </div>
 </template>
 <script>
@@ -21,7 +19,9 @@
   import io from 'socket.io-client'
   export default{
     data(){
-      return {}
+      return {
+        startRocket: 0
+      }
     },
     computed: {
       ...mapGetters({'rockets': 'rockets', 'walls': 'walls'})
@@ -33,31 +33,30 @@
         addRocketDis: ADD_ROCKET_DISTANCE,
       }),
       ...mapActions({
-        redoAddWall: REDO_ADD_WALL
-      }),
-      test(){
-        this.addWalls({
-          content: Date.now(),
-          id: Date.now(),
-          nickname: 'Qoder',
-          userId: 1
-        })
-      },
-      reAdd(){
-        this.redoAddWall()
-      }
+        redoAddWall: 'redoAddWall'
+      })
     },
     created(){
       const vm = this;
-      vm.io = io.connect('http://127.0.0.1:9001')
+      vm.io = io.connect(__APIHOST__)
     },
     mounted(){
       const vm = this;
       vm.io.on('pulMess', (data)=> {
         vm.addWalls(data)
       })
-      vm.io.on('PULADMINWALLTOWALL', ({content})=> {
-        vm.addRockets({content})
+      vm.io.on('PULADMINWALLTOWALL', (data)=> {
+        let copyData = data
+        copyData.speed = 1
+        copyData.distance = 0
+        copyData.isHover = 0
+        vm.addRockets(copyData)
+        if (vm.startRocket === 0) {
+          vm.startRocket=1
+          setInterval(()=> {
+            vm.addRocketDis()
+          }, 6)
+        }
       })
     },
     components: {

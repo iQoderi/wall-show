@@ -11,7 +11,7 @@ const mutations = {
   [types.ADD_ROCKET_DISTANCE]({rockets}){
     let maxMoveWidth = window.innerWidth + 1000;
     for (let i = rockets.length - 1; i >= 0; i--) {
-      rockets[i].index = i;
+      rockets[i].distance=rockets[i].distance||1;
       if (rockets[i].distance > maxMoveWidth) {
         rockets.splice(i, 1)
       } else {
@@ -35,8 +35,12 @@ const mutations = {
       }
     })
   },
-  [types.CLOSE_ROCKET]({rockets}, index){
-    rockets.splice(index, 1)
+  [types.CLOSE_ROCKET]({rockets}, rocket){
+    for (let i = rockets.length - 1; i >= 0; i--) {
+      if (rockets[i].id === rocket.id) {
+        rockets.splice(i, 1)
+      }
+    }
   }
 }
 

@@ -17,7 +17,7 @@ export const redoAddWall = ({commit, state}, wall)=> {
 
   if (historyWalls.length > 0 && flag === 1) {
     let firstHisWall = historyWalls[0]
-    commit(types.SHIFT_HISROTY_WALL)
+    commit(types.SHIFT_HISTORY_WALL)
     commit(types.ADD_WALL, firstHisWall)
   }
 }

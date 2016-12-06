@@ -1,34 +1,41 @@
 <template>
-  <div class="rocket-wrapper"
-       @dblclick="closeRocket(rocket.index)"
-       @mouseover="pauseRocket(rocket)"
-       @mouseout="restartRocket(rocket)"
-       v-bind:style="{transform:'rotate(90deg) translate3D(0,'+-rocket.distance+'px,0)'}"
-  >
-    <div class="content">
-      {{rocket.content}}
+  <div>
+    <div class="rocket-wrapper"
+         v-for="rocket in rockets"
+         track-by="$index"
+         @dblclick="closeRocket(rocket)"
+         @mouseover="pauseRocket(rocket)"
+         @mouseout="restartRocket(rocket)"
+         v-bind:style="{transform:'translate3D('+rocket.distance+'px,0,0)'}"
+    >
+      <div class="header"></div>
+      <div class="content">
+        {{rocket.content}}
+      </div>
     </div>
   </div>
 </template>
 <style lang="scss" scoped>
   .rocket-wrapper {
     cursor: pointer;
-    height: 200px;
-    width: 200px;
     position: absolute;
     top: 20px;
-    left: -100px;
+    left: 1000px;
+  }
+  .header{
+    height: 200px;
+    width: 200px;
+    transform: rotate(90deg);
     border-radius: 200px;
     background: url("../assets/rocket.gif") no-repeat center;
     background-size: 100%;
   }
-
   .content {
     width: 800px;
     height: 200px;
     position: absolute;
-    top: 515px;
-    left: -300px;
+    top: 0;
+    left: -820px;
     font-weight: 600;
     background: #222;
     display: flex;
@@ -40,20 +47,10 @@
     color: chocolate;
     padding: 10px;
     text-align: center;
-    font-size: 50px;
+    font-size: 80px;
     opacity: 0.7;
-    transform: rotate(270deg);
   }
 
-
-  @keyframes rocketAnimation {
-    from {
-      transform: rotate(90deg) translate3D(0, 0, 0);
-    }
-    to {
-      transform: translate3D(2000px, 0, 0) rotate(90deg);
-    }
-  }
 </style>
 <script>
   import {mapMutations} from 'vuex'
@@ -70,8 +67,8 @@
       })
     },
     props: {
-      rocket: {
-        type: Object,
+      rockets: {
+        type: Array,
         required: true
       }
     }

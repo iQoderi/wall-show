@@ -6,13 +6,7 @@ import mutations from './mutations'
 import * as getters from './gettters';
 
 const state = {
-  rockets: [{
-    id: 1,
-    content: "dawd",
-    distance: 0,
-    isHover: 0,
-    speed: 1
-  }]
+  rockets: []
 }
 
 export default {

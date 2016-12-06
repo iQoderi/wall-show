@@ -25,5 +25,6 @@
     background: url("./assets/Wall_back.png") no-repeat;
     background-size: 100% 100%;
     overflow: hidden;
+
   }
 </style>
