@@ -20,7 +20,7 @@
     cursor: pointer;
     position: absolute;
     top: 20px;
-    left: 1000px;
+    left: -500px;
   }
   .header{
     height: 200px;
@@ -47,7 +47,7 @@
     color: chocolate;
     padding: 10px;
     text-align: center;
-    font-size: 80px;
+    font-size: 60px;
     opacity: 0.7;
   }
 

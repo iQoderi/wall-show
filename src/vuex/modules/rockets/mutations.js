@@ -9,7 +9,7 @@ const mutations = {
     rockets.push(rocket);
   },
   [types.ADD_ROCKET_DISTANCE]({rockets}){
-    let maxMoveWidth = window.innerWidth + 1000;
+    let maxMoveWidth = window.innerWidth + 1500;
     for (let i = rockets.length - 1; i >= 0; i--) {
       rockets[i].distance=rockets[i].distance||1;
       if (rockets[i].distance > maxMoveWidth) {

@@ -22,7 +22,7 @@
   #app{
     width: 100%;
     height: 100%;
-    background: url("./assets/Wall_back.png") no-repeat;
+    background: url("./assets/wall_back3.jpg") no-repeat;
     background-size: 100% 100%;
     overflow: hidden;
 
