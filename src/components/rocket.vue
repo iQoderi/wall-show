@@ -1,9 +1,10 @@
 <template>
   <div class="rocket-wrapper"
+       @dblclick="closeRocket(rocket.index)"
        @mouseover="pauseRocket(rocket)"
        @mouseout="restartRocket(rocket)"
        v-bind:style="{transform:'rotate(90deg) translate3D(0,'+-rocket.distance+'px,0)'}"
-      >
+  >
     <div class="content">
       {{rocket.content}}
     </div>
@@ -20,11 +21,6 @@
     border-radius: 200px;
     background: url("../assets/rocket.gif") no-repeat center;
     background-size: 100%;
-    /*transition: all 5s;*/
-    /*transform: rotate(90deg);*/
-    /*animation: rocketAnimation 5s ease-in-out;*/
-    /*animation-fill-mode: forwards;*/
-    /*-webkit-animation-fill-mode:forwards;*/
   }
 
   .content {
@@ -37,6 +33,7 @@
     background: #222;
     display: flex;
     align-items: center;
+    justify-content: center;
     border-radius: 5px;
     box-sizing: border-box;
     overflow: hidden;
@@ -47,6 +44,7 @@
     opacity: 0.7;
     transform: rotate(270deg);
   }
+
 
   @keyframes rocketAnimation {
     from {
@@ -59,7 +57,7 @@
 </style>
 <script>
   import {mapMutations} from 'vuex'
-  import {HOVER_ROCKET,LEAVE_ROCKET} from '../vuex/modules/rockets/mutation-type'
+  import {HOVER_ROCKET, LEAVE_ROCKET, CLOSE_ROCKET} from '../vuex/modules/rockets/mutation-type'
   export default{
     data(){
       return {}
@@ -67,7 +65,8 @@
     methods: {
       ...mapMutations({
         pauseRocket: HOVER_ROCKET,
-        restartRocket:LEAVE_ROCKET
+        restartRocket: LEAVE_ROCKET,
+        closeRocket: CLOSE_ROCKET
       })
     },
     props: {
