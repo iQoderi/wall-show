@@ -1,22 +1,23 @@
 <template>
   <div class="wrapper">
-    <button @click="test" class="button">rocket</button>
-    <button @click="add" class="button2">addrocket</button>
+    <button @click="test" class="button">addWall</button>
     <wall-logo/>
     <transition-group name="list" tag="ul">
-      <wall-item v-for="wall in walls" :wall='wall' v-bind:key="wall.id"></wall-item>
+      <wall-item
+        v-for="wall in walls" :wall='wall' v-bind:key="wall.id">
+      </wall-item>
     </transition-group>
     <wall-rocket
       v-for="rocket in rockets" :rocket="rocket"/>
   </div>
 </template>
 <script>
-  import {mapGetters, mapMutations} from 'vuex'
+  import {mapGetters, mapMutations, mapActions} from 'vuex'
   import WallLogo from '../components/logo.vue'
   import WallItem from '../components/wallItem.vue'
   import WallRocket from '../components/rocket.vue'
   import {ADD_ROCKETS, ADD_ROCKET_DISTANCE} from '../vuex/modules/rockets/mutation-type'
-  import {ADD_WALL} from '../vuex/modules/walls/mutation-type'
+  import {ADD_WALL, REDO_ADD_WALL} from '../vuex/modules/walls/mutation-type'
   import io from 'socket.io-client'
   export default{
     data(){
@@ -31,16 +32,19 @@
         addWalls: ADD_WALL,
         addRocketDis: ADD_ROCKET_DISTANCE,
       }),
+      ...mapActions({
+        redoAddWall: REDO_ADD_WALL
+      }),
       test(){
-        setInterval(()=> {
-          this.addRocketDis();
-        }, 6)
-      },
-      add(){
-        this.addRockets({
-          content: '3213123123123', id: Date.now(), distance: 0, isHover: 0,
-          speed: 1
+        this.addWalls({
+          content: Date.now(),
+          id: Date.now(),
+          nickname: 'Qoder',
+          userId: 1
         })
+      },
+      reAdd(){
+        this.redoAddWall()
       }
     },
     created(){

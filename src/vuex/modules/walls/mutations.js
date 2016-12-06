@@ -5,16 +5,13 @@
 import * as types from './mutation-type'
 import getLength from '../../../utils/getLength'
 import limitLength from '../../../utils/limitLength'
+import getFontSize from '../../../utils/getFontSize'
 
 const mutations = {
   [types.ADD_WALL]({walls, historyWalls}, wall){
-    wall.content=limitLength(wall.content);
-    let length=getLength(wall.content);
-    if(length>=32){wall.fontSize='53px'}
-    if(length>=26&&length<32){wall.fontSize='70px'}
-    if(length>=18&&length<26){wall.fontSize='80px'}
-    if(length===16){wall.fontSize='100px'}
-    if(length<16){wall.fontSize='120px'}
+    wall.content = limitLength(wall.content);
+    let length = getLength(wall.content);
+    wall = getFontSize(length, wall)
     let flag = walls.every((myWall)=> {
       return myWall.id !== wall.id
     })
@@ -27,6 +24,12 @@ const mutations = {
     } else {
       console.warn('wall existed')
     }
+  },
+  [types.DELETE_WALL]({walls}, index){
+    walls.splice(index, 1)
+  },
+  [types.SHIFT_HISTORY_WALL]({historyWalls}){
+    historyWalls.shift();
   }
 }
 

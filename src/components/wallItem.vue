@@ -1,5 +1,5 @@
 <template>
-  <li>
+  <li @dblclick="redoAddWall(wall)">
     <div class="avatar-show">
       <img src="../assets/avatar.jpg" class="avatar">
       <div class="name-show">{{wall.nickname}}</div>
@@ -72,9 +72,16 @@
   }
 </style>
 <script>
+  import {mapActions} from 'vuex'
+  import {REDO_ADD_WALL} from '../vuex/modules/walls/mutation-type'
   export default{
     data(){
       return {}
+    },
+    methods: {
+      ...mapActions({
+        redoAddWall:'redoAddWall'
+      })
     },
     props: {
       wall: {

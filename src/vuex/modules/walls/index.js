@@ -4,14 +4,16 @@
 'use strict';
 import mutations from './mutations'
 import * as getters from './getters'
+import * as actions from './actions'
 
-const state={
-  walls:[],
-  historyWalls:[]
+const state = {
+  walls: [],
+  historyWalls: []
 }
 
 export default {
   state,
   getters,
+  actions,
   mutations
 }
